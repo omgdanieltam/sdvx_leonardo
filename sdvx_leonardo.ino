@@ -1,7 +1,13 @@
-// pushbutton: http://forum.arduino.cc/index.php/topic,72276.0.html
-// encoders: www.circuitsathome.com/mcu/reading-rotary-encoder-on-arduino
-// pushbuttons: 10k ohm to ground and pin#
+/*
+* By Daniel Tam (daniel@danieltam.net)
+============ NOTES ============
+This will create a SDVX Controller using an Arduino Leonardo. 
+You will hook up one wire of the button to the Arduino pin and the other to Arduino's ground. When pushed, the button should go to ground.
+You will need to download the encoder library and use it in your project for this to work (ww.circuitsathome.com/mcu/reading-rotary-encoder-on-arduino)
+===============================
+*/
 
+// buttons
 #define BT_A 4
 #define BT_B 5
 #define BT_C 6
@@ -10,6 +16,7 @@
 #define FX_R 9
 #define BT_ST 10
 
+// encoders
 #include <Encoder.h>
 Encoder enc1(0, 1);
 Encoder enc2(2, 3);
@@ -20,6 +27,8 @@ float old_knob2 = 0;
 
 void setup()
 { 
+  // set pins to read, and output high
+  // when the pins read low, we know that the buttons have went to ground (aka, pushed down)
   pinMode(BT_A, INPUT);
   pinMode(BT_B, INPUT);
   pinMode(BT_C, INPUT);
@@ -42,11 +51,13 @@ void setup()
 
 void loop()
 {
+  // read encoders
   knob1 =  (float)(enc1.read());
   knob2 = (float)enc2.read();
   
   if(knob1 != old_knob1)
   {
+    // if there's a difference in encoder movement from last pass, move the mouse
     if(knob1 < old_knob1)
     {
       Mouse.move(0, -5);
@@ -56,6 +67,7 @@ void loop()
       Mouse.move(0, 5);
     }
     
+	// we count the difference in the encoders, but we must not go over arduino's int limit
     if(knob1 < -255)
     {
       enc1.write(0);
@@ -98,7 +110,8 @@ void loop()
       old_knob2 = knob2;
     }
   }
-      
+  
+  // read the buttons for low, if it's low, output a keyboard press  
   if(digitalRead(BT_A) == LOW)
   {
     Keyboard.press('a');
@@ -162,4 +175,3 @@ void loop()
     Keyboard.release('n');
   }
 }
-  
