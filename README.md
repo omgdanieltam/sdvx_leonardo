@@ -27,4 +27,5 @@ Rotary Encoder 2 -> Digital 2 and Digital 3
 
 #SOURCES
 http://forum.arduino.cc/index.php/topic,72276.0.html -- Pushbuttons
+
 www.circuitsathome.com/mcu/reading-rotary-encoder-on-arduino -- Encoders; library needed for encoders
