@@ -6,12 +6,21 @@ Sound Voltex is a rhythm game created by Konami. Since it is an arcade game, the
 
 #WIRING
 How to correctly hook up the wires
+
 Button A -> Digital 4
+
 Button B -> Digital 5
+
 Button C -> Digital 6
+
 Button D -> Ditital 7
+
 Button FX-L -> Digital 8
+
 Button FX-R -> Digital 9
+
 Button Start -> Digital 10
+
 Rotary Encoder 1 -> Digital 0 and Digital 1
+
 Rotary Encoder 2 -> Digital 2 and Digital 3
