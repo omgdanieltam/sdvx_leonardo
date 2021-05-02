@@ -1,11 +1,23 @@
 # sdvx_leonardo
 Arduino Leonardo code to make a Sound Voltex Controller
 
-#INTRODUCTION
-Sound Voltex is a rhythm game created by Konami. Since it is an arcade game, there are no official controllers and no offical way to play at home. There is a similation of this game called K-Shoot. Since we would want to play the game as if it was an arcade game, we will need to create a controller to play the game. This is to create a Sound Voltex controller using an Arduino Leonardo. It will take 7 buttons and 2 rotary encoders. Using this, we will maps the controls so that it will act as a keyboard and mouse plugged into the computer. Then, we can use this to play Sound Voltex/K-Shoot.
+## INTRODUCTION
 
-#WIRING
-How to correctly hook up the wires. When hooking up the wires for buttons, there should be two wires. One should go to the arudino board as listed below, the other should go to ground. The encoders should have three wires, two to the arduino, and one to ground.
+Sound Voltex is a rhythm game created by Konami. Since it is an arcade game,
+there are no official controllers and no offical way to play at home. Luckily
+for us, there is a simulator called K-Shoot Mania. Since we would like to
+recreate the arcade experience, we will need to create a controller to play the
+game. This project should help you to create a Sound Voltex controller using an
+Arduino Leonardo. It takes 7 buttons and 2 rotary encoders and maps them to
+keyboard and mouse inputs. This allows us to play Sound Voltex/K-Shoot with our
+homebrew controllers.
+
+## WIRING
+
+Here's how to correctly hook up the wires. Firstly, each button needs two
+wires. One should go to a digital pin as listed below, and the other should go
+to the ground. The encoders should have three wires, two to the digital pins
+and one to the ground.
 
 Button A -> Digital 4
 
@@ -25,33 +37,47 @@ Rotary Encoder 1 -> Digital 0 and Digital 1
 
 Rotary Encoder 2 -> Digital 2 and Digital 3
 
-#MAPPING
-How the keys are mapped in format Button : Keyboard letter
+## MAPPING
 
-Button A : "a"
+The buttons are mapped to alphanumeric keys, while the encoders are mapped to
+mouse inputs. You may want to change your FX key bindings if you primarily use
+a Japanese keyboard.
 
-Button B : "b"
+Button A : "d"
 
-Button C : "c"
+Button B : "f"
 
-Button D : "d"
+Button C : "j"
 
-Button FX-L : "z"
+Button D : "k"
 
-Button FX-R : "x"
+Button FX-L : "c"
 
-Button Start : "n"
+Button FX-R : "m"
+
+Button Start : "1"
 
 Encoder 1 : Mouse Y-Axis
 
 Encoder 2 : Mouse X-Axis
 
-#HOW IT WORKS
-During intialization, we set the pins for the buttons to output HIGH. Since one wire is hooked to ground, when the button is pushed it should cause the pin to go to ground. If we read the pin at this time, it should read LOW and thus we know that the button is pushed down. Once we know the button is pushed down, we output a keyboard press through the arduino to the apporiate letter. Once the button is released, we can also release the keyboard press.
+## HOW IT WORKS
 
-The encoders will read it's location at every cycle. We then determine if this is more or less than previous and move the mouse x/y axis apporiately. Since we are careful not to exceed the arduino's integer number, we set a max number of 255 and a minimum number of -255. If it exceeds this, we set the integer back to 0.
+During intialization, we set the pins for the buttons to output HIGH. Since one
+wire is hooked to ground, when the button is pushed it should cause the pin to
+go to ground. If we read the pin at this time, it should read LOW and thus we
+know that the button is pushed down. Once we know the button is pushed down, we
+output a keyboard press through the arduino to the apporiate letter. Once the
+button is released, we can also release the keyboard press.
 
-#SOURCES
+The encoders will read its location at every cycle. We then determine if this
+is more or less than previous and move the mouse x/y axis accordingly. We also
+set a boundary of -128 <= reading <= 127 and reset the value once they go
+beyond this limit.
+
+## SOURCES
+
 http://forum.arduino.cc/index.php/topic,72276.0.html -- Pushbuttons
 
-www.circuitsathome.com/mcu/reading-rotary-encoder-on-arduino -- Encoders; library needed for encoders
+www.circuitsathome.com/mcu/reading-rotary-encoder-on-arduino -- Encoders;
+library needed for encoders
